@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "${modId}",
+	"version": "${version}",
+	"name": "${description}",
+	"description": "${modDescription}",
+	"authors": ["${modAuthors"],
+	"contact": {
+		"homepage": "${modPage}",
+		"sources": "${githubUrl}",
+		"issues": "${issuesUrl}"
+	},
+	"license": "${license}",
+	"icon": "assets/blaze/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"io.github.sh0inx.blaze.Blaze"
+		],
+		"client": [
+			"io.github.sh0inx.blaze.BlazeClient"
+		]
+	},
+	"mixins": [
+		"blaze.mixins.json",
+		{
+			"config": "blaze.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=${fabricLoaderVersion}",
+		"minecraft": "~${minecraftVersion}",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

@@ -1,0 +1,31 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}" #mandatory
+
+license="${mod_license}"
+issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
+
+# A list of mods - how many allowed here is determined by the individual mod loader
+[["${mod_id}"]] #mandatory
+
+modId="${archives_base_name}"
+version="${version}"
+displayName="${description}"
+
+updateJSONURL="https://api.modrinth.com/v2/project/${mod_modrinth_slug}/version"
+displayURL="${mod_page}"
+
+logoFile="main/resources/assets.blaze/icon.png"
+authors="${mod_authors}"
+displayTest="IGNORE_ALL_VERSION"
+description='''${mod_description}'''
+
+# The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.
+#[[mixins]]
+#config="${mod_id}.mixins.json"
+
+# The [[accessTransformers]] block allows you to declare where your AT file is.
+# If this block is omitted, a fallback attempt will be made to load an AT from META-INF/accesstransformer.cfg
+#[[accessTransformers]]
+#file="META-INF/accesstransformer.cfg"
+
+# The coremods config file path is not configurable and is always loaded from META-INF/coremods.json
