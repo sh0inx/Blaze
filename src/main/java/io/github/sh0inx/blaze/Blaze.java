@@ -1,5 +1,6 @@
 package io.github.sh0inx.blaze;
 
+import io.github.sh0inx.blaze.managers.dependencyManager.DependencyManager;
 import net.fabricmc.api.ModInitializer;
 
 import lombok.Getter;
@@ -11,12 +12,17 @@ public class Blaze implements ModInitializer {
 
 	@Getter
 	private static Blaze instance;
-    public static final Logger LOGGER = LoggerFactory.getLogger("Blaze");
+	@Getter
+    public static final Logger logger = LoggerFactory.getLogger("Blaze");
+
+	// Managers
+	private DependencyManager dependencyManager;
 
 	@Override
 	public void onInitialize() {
-		LOGGER.info("Initializing Blaze...");
+		getLogger().info("Initializing Blaze...");
 		instance = this;
+		this.dependencyManager = new DependencyManager();
 	}
 
 	// WORLD MAP
@@ -38,6 +44,7 @@ public class Blaze implements ModInitializer {
 	// player(s) location
 	// pins to hold data for a marker (hook into screenshot viewer to display location screenshot?)
 	// 3D mode
+	// keybind to disable the map rendering (ctrl + m)
 
 	// WAR MAP
 	// block / multiblock structure - round table that displays a section of the map (perimeter markers)

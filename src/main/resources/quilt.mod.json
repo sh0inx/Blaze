@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "quilt_loader": {
+    "group": "${group}",
+    "id": "${modId}",
+    "version": "${version}",
+    "metadata": {
+      "name": "${description}",
+      "description": "${modDescription}",
+      "contributors": {
+        "${modAuthors}": "Owner"
+      },
+      "contact": {
+        "homepage": "${modPage}",
+        "issues": "${issuesURL}",
+        "sources": "${githubURL}"
+      },
+      "icon": "assets/blaze/icon.png"
+    },
+    "intermediate_mappings": "net.fabricmc:intermediary",
+    "entrypoints": {
+      "main": [
+        "io.github.sh0inx.blaze.Blaze"
+      ],
+      "client": [
+        "io.github.sh0inx.blaze.BlazeClient"
+      ],
+      "server": [
+        "io.github.sh0inx.blaze.BlazeServer"
+      ]
+    },
+    "depends": [
+      {
+        "id": "quilt_loader",
+        "versions": ">=0.19.1"
+      },
+      {
+        "id": "quilted_fabric_api",
+        "versions": ">=7.0.2"
+      },
+      {
+        "id": "minecraft",
+        "versions": ">=1.20"
+      }
+    ]
+  },
+  "mixin": "blaze.mixins.json"
+}

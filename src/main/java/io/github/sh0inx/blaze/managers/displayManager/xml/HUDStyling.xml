@@ -1,0 +1,25 @@
+<owo-ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/wisp-forest/owo-lib/1.20/owo-ui.xsd">
+    <components>
+        <flow-layout direction="vertical">
+            <children>
+                <grid-layout rows="5" columns="7">
+                    <children>
+                        <draggable id="minimap">
+                            <box>
+                                <color>white</color>
+                                <direction>left-to-right</direction>
+                                <margins>1.5</margins>
+                                <tooltip-text>"Click and drag to change the position of the mini-map."</tooltip-text>
+                                <sizing>15</sizing>
+                            </box>
+                        </draggable>
+                    </children>
+                    <padding>
+                        <all>10</all>
+                    </padding>
+                </grid-layout>
+            </children>
+        </flow-layout>
+    </components>
+</owo-ui>

@@ -19,6 +19,9 @@
 		],
 		"client": [
 			"io.github.sh0inx.blaze.BlazeClient"
+		],
+		"server": [
+			"io.github.sh0inx.blaze.BlazeServer"
 		]
 	},
 	"mixins": [
