@@ -1,6 +1,8 @@
 package io.github.sh0inx.blaze;
 
+import io.github.sh0inx.blaze.managers.PlatformManager;
 import io.github.sh0inx.blaze.managers.dependencyManager.DependencyManager;
+import io.github.sh0inx.blaze.utils.Utils;
 import net.fabricmc.api.ModInitializer;
 
 import lombok.Getter;
@@ -15,14 +17,25 @@ public class Blaze implements ModInitializer {
 	@Getter
     public static final Logger logger = LoggerFactory.getLogger("Blaze");
 
+	// Utilities
+	public Utils utils;
+
 	// Managers
 	private DependencyManager dependencyManager;
+	private PlatformManager platformManager;
 
 	@Override
 	public void onInitialize() {
 		getLogger().info("Initializing Blaze...");
 		instance = this;
-		this.dependencyManager = new DependencyManager();
+
+		this.utils = new Utils();
+
+		this.platformManager = new PlatformManager();
+		if(!platformManager.isSupportedPlatform()) {
+			getLogger().warn("UNSUPPORTED PLATFORM DETECTED - " + platformManager.getPlatform().toUpperCase());
+			getLogger().warn("Blaze does not support this platform. If you run into issues using this platform, do not report them.");
+		}
 	}
 
 	// WORLD MAP

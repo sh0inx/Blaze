@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
   "quilt_loader": {
-    "group": "${group}",
-    "id": "${modId}",
-    "version": "${version}",
+    "group": "io.github.sh0inx.blaze",
+    "id": "blaze",
+    "version": "1.0.0-alpha",
     "metadata": {
-      "name": "${description}",
-      "description": "${modDescription}",
+      "name": "Blaze",
+      "description": "A blazing-fast minimap, world map, and so much more.",
       "contributors": {
-        "${modAuthors}": "Owner"
+        "sh0inx": "Owner"
       },
       "contact": {
-        "homepage": "${modPage}",
-        "issues": "${issuesURL}",
-        "sources": "${githubURL}"
+        "homepage": "https://www.modrinth.com/mod/blaze",
+        "issues": "https://www.github.com/sh0inx/Blaze/issues",
+        "sources": "https://www.github.com/sh0inx/Blaze"
       },
       "icon": "assets/blaze/icon.png"
     },
@@ -40,7 +40,7 @@
       },
       {
         "id": "minecraft",
-        "versions": ">=1.20"
+        "versions": ">=1.20.1"
       }
     ]
   },

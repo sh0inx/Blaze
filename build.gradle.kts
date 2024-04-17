@@ -1,12 +1,15 @@
-	plugins {
+@file:Suppress("DSL_SCOPE_VIOLATION", "MISSING_DEPENDENCY_CLASS", "FUNCTION_CALL_EXPECTED", "PropertyName")
+
+plugins {
 	id("org.quiltmc.loom") version("1.+")
-	//id("net.neoforged.gradle.userdev") version("7.0.105")
 	id("com.github.johnrengelman.shadow") version("8.1.1")
 	java
 	`maven-publish`
 }
 
-base.archivesName.set(property("mod_id").toString())
+base {
+        archivesName = property("mod_id").toString()
+}
 
 repositories {
 	maven {
@@ -16,23 +19,17 @@ repositories {
 }
 
 dependencies {
-	minecraft("com.mojang:minecraft:" + property("minecraft_version")!!)
-	//mappings("net.fabricmc:yarn:" + property("yarn_mappings")!!)
-	mappings("org.quiltmc:quilt-mappings:1.20.4+build.3:intermediary-v2")
+	minecraft("com.mojang:minecraft:" + property("minecraft_version"))
+    mappings("org.quiltmc:quilt-mappings:" + property("quilt_mappings") + ":intermediary-v2")
 
 	// Quilt API
-	modImplementation("org.quiltmc:quilt-loader:0.24.0")
-	modImplementation("org.quiltmc.quilted-fabric-api:quilted-fabric-api:7.5.0+0.91.0-1.20.1")
-
-	// Fabric API
-	//modImplementation("net.fabricmc:fabric-loader:" + property("fabric_loader_version"))
-	//modImplementation("net.fabricmc.fabric-api:fabric-api:" + property("fabric_api_version"))
+	modImplementation("org.quiltmc:quilt-loader:" + property("quilt_loader"))
+	modImplementation("org.quiltmc.quilted-fabric-api:quilted-fabric-api:" + property("qfapi_version"))
 
 	// Other Environment Dependencies
 
 	// oωo lib
 	modImplementation("io.wispforest:owo-lib:" + property("owo_version"))
-	implementation("io.wispforest:owo-lib:" + property("owo_version"))
 
 	// Java Libraries
 	implementation("org.projectlombok:lombok:1.18.28")
@@ -50,6 +47,44 @@ loom {
 			options.put("<option name>", "<value>")
 		}
 	}
+
+    splitEnvironmentSourceSets()
+
+    mods {
+        // This should match your mod id.
+        create("blaze") {
+            // Tell Loom about each source set used by your mod here. This ensures that your mod's classes are properly transformed by Loader.
+            sourceSet("main")
+            sourceSet("test")
+            sourceSet("client")
+            // If you shade (directly include classes, not JiJ) a dependency into your mod, include it here using one of these methods:
+            // dependency("com.example.shadowedmod:1.2.3")
+            // configuration("exampleShadedConfigurationName")
+        }
+    }
+}
+
+// gradle.properties
+
+val modId = property("mod_id")
+val modDescription = property("mod_description")
+val modAuthors = property("mod_authors")
+val modPage = property("mod_page")
+val githubUrl = property("mod_repo")
+val issuesUrl = property("mod_issues")
+val license = property("mod_license")
+
+val qfapiVersion = property("qfapi_version")
+val quiltLoaderVersion = property("quilt_loader")
+
+val minecraftVersion = property("minecraft_version")
+val minecraftVersionRange = property("minecraft_version_range")
+
+java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        withSourcesJar()
+        // withJavadocJar()
 }
 
 tasks {
@@ -57,32 +92,13 @@ tasks {
 	processResources {
 		filteringCharset = "UTF-8"
 
-		// gradle.properties
-		val modId: String by extra
-		val modDescription: String by extra
-		val modAuthors: String by extra
-		val modPage: String by extra
-		val githubUrl: String by extra
-		val issuesUrl: String by extra
-		val license: String by extra
-
-		val fabricApiVersion: String by extra
-		val fabricLoaderVersion: String by extra
-
-		//val neoforgeVersionRange: String by extra
-		//val neoforgeLoaderVersionRange: String by extra
-
-		val minecraftVersion: String by extra
-		val minecraftVersionRange: String by extra
-
-		filesMatching(listOf("META-INF/mods.toml", "fabric.mod.json", "quilt.mod.json")) {
+		/**filesMatching(listOf("quilt.mod.json")) {
 			expand(mapOf(
 
-					"maven_group" to group,
-
-					"mod_name" to description,
+					group to group,
+					description to description,
 					"mod_id" to modId,
-					"mod_version" to version,
+					version.toString() to version,
 					"mod_description" to modDescription,
 					"mod_authors" to modAuthors,
 					"mod_page" to modPage,
@@ -90,21 +106,13 @@ tasks {
 					"mod_issues" to issuesUrl,
 					"mod_license" to license,
 
-					"fabric_api_version" to fabricApiVersion,
-					"fabric_loader_version" to fabricLoaderVersion,
-
-					//"neo_version_range" to neoforgeVersionRange,
-					//"neo_loader_version_range" to neoforgeLoaderVersionRange,
+					"qfapi_version" to qfapiVersion,
+					"quilt_loader" to quiltLoaderVersion,
 
 					"minecraft_version" to minecraftVersion,
 					"minecraft_version_range" to minecraftVersionRange,
 			))
-		}
-	}
-
-	compileJava {
-		sourceCompatibility = JavaVersion.VERSION_17.toString()
-		targetCompatibility = JavaVersion.VERSION_17.toString()
+		}*/
 	}
 
 	javadoc {
@@ -116,12 +124,13 @@ tasks {
 	}
 
 	jar {
+        archiveClassifier.set("")
 		from("LICENSE") {
-			rename { "LICENSE_${base.archivesName}" }
+			rename { "LICENSE_blaze" }
 		}
 
 		dependsOn("shadowJar")
-		enabled = false
+		enabled = true
 	}
 
 	shadowJar {
@@ -134,9 +143,4 @@ tasks {
 
 		minimize()
 	}
-}
-
-java {
-	withSourcesJar()
-	// withJavadocJar()
 }

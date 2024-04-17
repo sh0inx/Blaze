@@ -7,17 +7,8 @@ public class OwoManager {
 
     protected Owo owoLib;
 
-    private boolean classExists() {
-        try {
-            Class.forName("io.wispforest.owo.Owo");
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
-        return true;
-    }
-
     public void initializeOwo() {
-        if(!classExists()) {
+        if(!Blaze.getInstance().utils.classExists("io.wispforest.owo.Owo")) {
             Blaze.getLogger().info("Could not find owo-lib, initializing built-in dependency...");
         }
     }
